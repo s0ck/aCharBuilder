@@ -1,3 +1,4 @@
+import pickle
 #
 #   This loads the data from the D&D class into the class class. Yeah
 #
@@ -9,6 +10,14 @@
 #   Resistances works like:
 #       Key: What you have resistance against
 #       Data: Either True of False.
+#
+#   Skill proficiencies work by:
+#       Val1 = how many you can have (like, choose two)
+#       Val2: = choices
+#
+#   Index of proficiency boni:
+#       None is the first value so the indeces line up with the levels
+#
 #
 #   Not sure how to put 'Dwarves have Advantage against Poison.'
 #   Add saving throws later
@@ -108,7 +117,6 @@ Teifling    = {'abil_increase':[foo],
                }
 
 
-
 #-------------------------------------------------------------------------------------#
 
 
@@ -123,7 +131,6 @@ skills = 'money'           # 'Cool beans, dog' -- dubPirate
 Barbarian = {'prof_bonus':[],
              'features':[],
              'cantrips':[],
-             'spell_slots':[],
              'hit_di':[q,t], #q is for quantity; t is for type
              'hit_points':[lvl_1,higher],
              'profs':[armour,weapons,tools,skills]
@@ -156,7 +163,7 @@ Druid     = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Fighter   = {'prof_bonus':[],
+Monk       = {'prof_bonus':[],
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -165,13 +172,13 @@ Fighter   = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Monk      = {'prof_bonus':[],
-             'features':[],
-             'cantrips':[],
-             'spell_slots':[],
-             'hit_di':[q,t], #q is for quantity; t is for type
-             'hit_points':[lvl_1,higher],
-             'profs':[armour,weapons,tools,skills]
+Fighter    = {'prof_bonus':[None, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6],
+             'features':[None, {'Fighting Style':'Description', 'Second Wind':'Description'}],
+             'cantrips':['bangles'],
+             'spell_slots':[None],
+             'hit_di':[1,10], #q is for quantity; t is for type
+             'hit_points':['10 + CON,hit_di + self.CON'],
+             'profs':{ 'armour':'all armour', 'weapons':['simple', 'martial'], 'tools':None, 'skills': [2, 'acrobatics', 'animal handling', 'athletics', 'history', 'insight', 'intimidation','perception','survival'] }
              }
 
 Paladin   = {'prof_bonus':[],
@@ -192,7 +199,7 @@ Ranger    = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Rouge     = {'prof_bonus':[],
+Rogue     = {'prof_bonus':[],
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -238,14 +245,30 @@ Wizard    = {'prof_bonus':[],
             db = Dragonborn
             hu = Human
             tl = Teifling
+
+    The Classes dict keys:
+            bb = Barbarian
+            bd = Bard
+            cl = Cleric
+            dr = Druid
+            mo = Monk
+            fi = Fighter
+            pa = Paladin
+            ra = Ranger
+            ro = Rogue
+            so = Sourcerer
+            wa = Warlock
+            wz = Wizard
 """
 
 the_races = {'dw':Dwarf,'el':Elf,'hl':Halfling,'he':Half_Elf,'ho':Half_Orc,'db':Dragonborn, 'hu':Human, 'tl':Teifling}
-the_classes = {}
+the_classes = {'bb':Barbarian, 'bd':Bard, 'cl':Cleric, 'dr':Druid, 'mo':Monk, 'fi': Fighter, 'pa': Paladin, 'ra': Ranger, 'ro':Rogue,'so':Sorcerer,'wa':Warlock,'wz':Wizard}
 
+pickle.dump(the_races, open('races.p',"wb" ))
+pickle.dump(the_classes, open('classes.p', "wb"))
 #-------------------------------------------------------------------------------------#
 
-"""The Following is redundat"""
+''' The Following is redundant '''
 #class Race:
 #    """Love peebs""" #What are peebs?
 #    '''I'm going to use this to load classes into a class and then load that into the character class.'''

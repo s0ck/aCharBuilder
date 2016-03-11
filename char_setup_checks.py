@@ -1,4 +1,5 @@
 from race_class_loader import *
+from character_class import *
 
 #
 #   It's called 'char_setup_checks' but the function is called 'start_up'?
@@ -8,26 +9,43 @@ from race_class_loader import *
 #
 
 def race(): #Check's if the user has chosen an actual race.
-    races = ['Elf', 'Human', 'Half-Elf', 'Half elf', 'Half Elf', 'Half Orc','Dwarf', 'Halfling', 'Dragonborn', 'Teifling']
+    #races = ['Elf', 'Human', 'Half-Elf', 'Half elf', 'Half Elf', 'Half Orc','Dwarf', 'Halfling', 'Dragonborn', 'Teifling']
     race_keys = {'Dwarf':'dw','Elf':'el', 'Halfling':'hl', 'Half-Elf':'he','Half-Orc':'ho', 'Dragonborn':'db', 'Human':'hu', 'Teifling':'tl'}
     while True:
+        _carriage = []
+        print('>> The races be: ')
+        for key in race_keys:
+            if len(_carriage) >= 3:
+                print(_carriage)
+                _carriage = []
+            else:
+                _carriage.append(key)
         char_race = str(input('>> Choose a race, dude: '))
-        if char_race in races:
+        if char_race in race_keys:
             print('>> Duuuuude, I love', char_race+'s, brah.')
-            return race_keys[char_race]
+            fin_race = race_keys[char_race]
+            return fin_race
         else:
             print('>> Whu? is that a race?')
 
 
 
 def c_class():
-    classes = ['Bard','Fighter', 'Rouge', 'Ranger', 'Monk', 'Wizard', 'Warlock','Sorcerer']
-    NO_classes = len(classes)
+    class_keys = {'Barbarian':'bb', 'Bard':'bd', 'Cleric':'cl', 'Druid':'dr', 'Monk':'mo', 'Fighter':'fi', 'Paladin':'pa', 'Ranger':'ra', 'Rogue':'ro','Sorcerer':'so','Warlock':'wa','Wizard':'wz'}
     while True:
+        _carriage = []
+        print('>> The classes are: ')
+        for key in class_keys:
+            if len(_carriage) >= 3:
+                print(_carriage)
+                _carriage = []
+            else:
+                _carriage.append(key)
         char_class = str(input('>> Choose a Class, brah: '))
-        for num in range(0,NO_classes):
-            if char_class == classes[num]:
-                return char_class
+        if char_class in class_keys:
+            return class_keys[char_class]
+        else:
+            print('>> Wh- what, bro. Is that... is that a class?')
 
 
 
@@ -47,13 +65,13 @@ def stat_check(stat_type):
 
 
 
+
 def stat_mod(stat):
-    if stat => 10:
+    if stat >= 10:
         mod = int((stat - 10) / 2)
     elif stat < 10:
         mod = int((abs(7-11)/2)*-1)
     return mod
-
 
 
 
@@ -66,7 +84,6 @@ def setup():
     print('')
     char_name = str(input('>> First things first, Character Name: '))
     """
-    print('>> Duuuuuude. Sick name, duuude.')
 
     char_race = race()
     char_class = c_class()
@@ -81,7 +98,7 @@ def setup():
 
     ### Now the Stats
 
-    print('=== Now the totally rad part, brah ===')
+    print('=== Now the totally rad part brah ===')
     print('=============== STATS ===============')
 
     STR = stat_check('>> Put your strength stat, brah: ')
@@ -108,7 +125,7 @@ def setup():
     print('Or bros, man, what ever you is brah haha.')
 
 
-    char_attributes = {'fsrace':char_race,'class':char_class}
+    char_attributes = {'race':char_race,'class':char_class}
     char_deets = {'height':char_height,'eyes':char_eyes}
     char_stats = {'str':STR,'dex':DEX,'con':CON,'wis':WIS,'int':INT,'cha':CHA, 'str_m':STR_mod,'dex_m':DEX_mod,'con_m':CON_mod, 'wis_m':WIS_mod,'int':INT_mod,'cha':CHA_mod}
     return char_attributes,char_deets, char_stats
