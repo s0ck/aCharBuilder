@@ -5,103 +5,121 @@
 #
 #   Yo dog. Keep it real.
 #
-'''
-Dwarf       = {'abil_increase':{'DEX':2},
+#   Added 'Size' dictionaries for M or S.
+#   Resistances works like:
+#       Key: What you have resistance against
+#       Data: Either True of False.
+#
+#   Not sure how to put 'Dwarves have Advantage against Poison.'
+#   Add saving throws later
+#
+
+foo = 'bar'
+
+Dwarf       = {'abil_increase':{'CON':2},
                'speed':25,
                'vision':{'dim':60,'dark':'bw'}, #bw means black and white only
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
+               'special':[foo],
+               'profs':{
+               'weps':{'battleaxe':True,'handaxe':True,'throwing hammer':True, 'warhammer':True},
+               'tools':{'smith':False,'brewer':False,'mason':False}, # How do I put the 'or' in here.
+               'stone': 'You are proficient with History if you\'re checking the origin of a cut stone.'},
+               'res':{'poison': True}, #Resistances from types of damage
+               'langs':['Common', 'Dwarvish'],
+               'sub_race':[foo]
                }
 
 High_Elf    = {'abil_increase':{'INT':1}}
 
-Wood_Elf    = {}
+Wood_Elf    = {'foo':foo}
 
-Drow        = {}
+Drow        = {'foo':foo}
 
-Elf         = {'abil_increase':[],
+Elf         = {'abil_increase':[foo],
                'speed':25,
-               'vision':[],
+               'vision':[foo],
                'special':{'Trance':'Ye'},
                'profs':['Perception'],
-               'langs':[],
+               'langs':[foo],
                'sub_race':[High_Elf,Wood_Elf,Drow,]
                }
 
-Halfling    = {'abil_increase':[],
+Halfling    = {'abil_increase':[foo],
                'speed':25,
-               'vision':[],
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
+               'vision':[foo],
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
                }
 
-Human       = {'abil_increase':[],
+Human       = {'abil_increase':[foo],
                'speed':25,
-               'vision':[],
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
+               'vision':[foo],
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
                }
 
-Dragonborn  = {'abil_increase':[],
+Dragonborn  = {'abil_increase':[foo],
                'speed':25,
-               'vision':{},
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
-               }
-'''
-Gnome       = {'abil_increase':[],
-               'speed':25,
-               'vision':{},
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
-               }
-'''
-Half-Elf    = {'abil_increase':[],
-               'speed':25,
-               'vision':{},
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
+               'vision':{'foo':foo},
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
                }
 
-Half-Orc    = {'abil_increase':[],
+Gnome       = {'abil_increase':[foo],
                'speed':25,
-               'vision':{},
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
+               'vision':{'foo':foo},
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
                }
-'''
-Teifling    = {'abil_increase':[],
+
+Half_Elf    = {'abil_increase':[foo],
                'speed':25,
-               'vision':{},
-               'special':[],
-               'profs':[],
-               'langs':[],
-               'sub_race':[]
+               'vision':{'foo':foo},
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
                }
+
+Half_Orc    = {'abil_increase':[foo],
+               'speed':25,
+               'vision':{'foo':foo},
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
+               }
+
+Teifling    = {'abil_increase':[foo],
+               'speed':25,
+               'vision':{'foo':foo},
+               'special':[foo],
+               'profs':[foo],
+               'langs':[foo],
+               'sub_race':[foo]
+               }
+
 
 
 #-------------------------------------------------------------------------------------#
+
+
+
 q, t = 1, 2
 lvl_1 = 'le'
 higher = 'er'
 armour = 'thing'
-weapons = ' I eat memory ' #these are here just to not throw errors. 
+weapons = ' I eat memory ' #these are here just to not throw errors.
 tools = 23432              # I'll put the rest of the pirated stats in later.
-skills = 'money'
+skills = 'money'           # 'Cool beans, dog' -- dubPirate
 Barbarian = {'prof_bonus':[],
              'features':[],
              'cantrips':[],
@@ -210,15 +228,26 @@ Wizard    = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
+"""
+    The Races dict keys:
+            dw = Dwarf
+            el = Elf
+            hl = Halfling
+            he = Half-Elf
+            ho = Half-Orc
+            db = Dragonborn
+            hu = Human
+            tl = Teifling
+"""
+
+the_races = {'dw':Dwarf,'el':Elf,'hl':Halfling,'he':Half_Elf,'ho':Half_Orc,'db':Dragonborn, 'hu':Human, 'tl':Teifling}
+the_classes = {}
+
 #-------------------------------------------------------------------------------------#
 
-
-class Race:
-    """Love peebs"""
-    def __init__(self, name):
-        print('Yo, world.')
-        print(name)
-        print('Hubba Hubba!')
-        self.name = name
-
-
+"""The Following is redundat"""
+#class Race:
+#    """Love peebs""" #What are peebs?
+#    '''I'm going to use this to load classes into a class and then load that into the character class.'''
+#    def __init__(self, race):
+#        self.
