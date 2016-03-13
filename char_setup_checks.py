@@ -89,7 +89,7 @@ def setup():
     char_class = c_class()
 
     print('>> Braaaaaah. Wiiiickeeeeed.')
-    char_height = str(input('>> Hi how high are you bro (height get it bro haha): '))
+    char_level = int(input('>> What level you starting at, braaaaaah: '))
     char_eyes = str(input('>> What\'s your eye color duude: '))
     print('Hahahha pretty sick, duuuuude.')
     print(heading)
@@ -126,6 +126,5 @@ def setup():
 
 
     char_attributes = {'race':char_race,'class':char_class}
-    char_deets = {'height':char_height,'eyes':char_eyes}
-    char_stats = {'str':STR,'dex':DEX,'con':CON,'wis':WIS,'int':INT,'cha':CHA, 'str_m':STR_mod,'dex_m':DEX_mod,'con_m':CON_mod, 'wis_m':WIS_mod,'int':INT_mod,'cha':CHA_mod}
-    return char_attributes,char_deets, char_stats
+    char_stats = {'str':STR,'dex':DEX,'con':CON,'wis':WIS,'int':INT,'cha':CHA}
+    return char_attributes, char_level, char_stats
