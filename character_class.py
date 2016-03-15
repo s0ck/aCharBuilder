@@ -72,9 +72,12 @@ class Character(object):
 
         while True:
             key = str(input('>> '))
-            if key == 'quit':
+            if key == 'save':
+                self.save()
+            elif key == 'skill':
+                self.skill_check()
+            elif key == 'quit':
                 break
-
             else:
                 print(key)
             """
@@ -90,14 +93,22 @@ class Character(object):
         self.skills = [self.dex_skills, self.int_skills, self.wis_skills, self.cha_skills]
 
     def skill_check(self):
+        '''
+            So this goes through the self.skills one list at a time:
+                if the input is in the
+        '''
+        curr_list = 0
         print('>> Which skill ya need bruh.')
         skill = str(input('>> '))
         mod = 0
         for lst in self.skills:
             if skill in lst[1]:
                 mod += lst[0]
-            if skill == True:
-                mod += self.CLASS['prof boni'][self.level]
+                if lst[1][skill] == True:
+                    mod += self.CLASS['prof boni'][self.level]
+            else:
+                curr_list += 1
+        print(mod)
 
     def my_items(self):
         """This is a place holder at the moment until I get
