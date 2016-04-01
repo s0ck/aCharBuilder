@@ -12,7 +12,7 @@ import pickle
 #       Data: Either True of False.
 #
 #   Skill proficiencies work by:
-#       Val1 = how many you can have (like, choose two)
+#       Val1 = how many you can have (as in 'choose n')
 #       Val2: = choices
 #
 #   Index of proficiency boni:
@@ -22,18 +22,25 @@ import pickle
 #   Not sure how to put 'Dwarves have Advantage against Poison.'
 #   Add saving throws later
 #
+#   Features of Classes data structure is:
+#       [None,[{'lv1 feat name':'description', 'other feat':'desc2'}], reapeat]
+#       1 None (because that makes list easier to corrospond to level)
+#
+#       access by:
+#           all_ur_feats = self.CLASS['features'][1:self.level]
+#
 
 foo = 'bar'
 
 Dwarf       = {'abil_increase':{'CON':2},
                'speed':25,
-               'vision':{'dim':60,'dark':'bw'}, #bw means black and white only
-               'special':[foo],
+               'vision':{'dim':60,'dark':'you can only see in black and white'}, #bw means black and white only
+               'special':'You are proficient with History if you\'re checking the origin of a cut stone.',
                'profs':{
-               'weps':{'battleaxe':True,'handaxe':True,'throwing hammer':True, 'warhammer':True},
-               'tools':{'smith':False,'brewer':False,'mason':False}, # How do I put the 'or' in here.
-               'stone': 'You are proficient with History if you\'re checking the origin of a cut stone.'},
-               'res':{'poison': True}, #Resistances from types of damage
+                    'weps':['battleaxe','handaxe','throwing hammer', 'warhammer'],
+                    'tools':[1, 'smith','brewer','mason'] # slice it so that ['tools'][0] comes up as the amount of tools you can be proficient with and ['tools'][1:] are the choices
+                    },
+               'res':'poison', #Resistances from types of damage
                'langs':['Common', 'Dwarvish'],
                'sub_race':[foo]
                }
@@ -128,7 +135,7 @@ armour = 'thing'
 weapons = ' I eat memory ' #these are here just to not throw errors.
 tools = 23432              # I'll put the rest of the pirated stats in later.
 skills = 'money'           # 'Cool beans, dog' -- dubPirate
-Barbarian = {'prof_bonus':[],
+Barbarian = {
              'features':[],
              'cantrips':[],
              'hit_di':[q,t], #q is for quantity; t is for type
@@ -136,16 +143,7 @@ Barbarian = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Bard      = {'prof_bonus':[],
-             'features':[],
-             'cantrips':[],
-             'spell_slots':[],
-             'hit_di':[q,t], #q is for quantity; t is for type
-             'hit_points':[lvl_1,higher],
-             'profs':[armour,weapons,tools,skills]
-             }
-
-Cleric    = {'prof_bonus':[],
+Bard      = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -154,7 +152,7 @@ Cleric    = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Druid     = {'prof_bonus':[],
+Cleric    = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -163,7 +161,7 @@ Druid     = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Monk       = {'prof_bonus':[],
+Druid     = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -172,16 +170,24 @@ Monk       = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Fighter    = {'prof_bonus':[None, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6],
-             'features':[None, {'Fighting Style':'Description', 'Second Wind':'Description'}],
-             'cantrips':['bangles'],
+Monk       = {
+             'features':[],
+             'cantrips':[],
+             'spell_slots':[],
+             'hit_di':[q,t], #q is for quantity; t is for type
+             'hit_points':[lvl_1,higher],
+             'profs':[armour,weapons,tools,skills]
+             }
+
+Fighter    = {'features':[None, {'Fighting Style':'Description', 'Second Wind':'Description'}],
+             'cantrips':[None],
              'spell_slots':[None],
              'hit_di':[1,10], #q is for quantity; t is for type
              'hit_points':['10 + CON,hit_di + self.CON'],
-             'profs':{ 'armour':'all armour', 'weapons':['simple', 'martial'], 'tools':None, 'skills': [2, 'acrobatics', 'animal handling', 'athletics', 'history', 'insight', 'intimidation','perception','survival'] }
+             'profs':{'armour':'all', 'weapons':['simple', 'martial'], 'tools':None, 'skills': [2, 'acrobatics', 'animal handling', 'athletics', 'history', 'insight', 'intimidation','perception','survival'] }
              }
 
-Paladin   = {'prof_bonus':[],
+Paladin   = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -190,7 +196,7 @@ Paladin   = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Ranger    = {'prof_bonus':[],
+Ranger    = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -199,7 +205,7 @@ Ranger    = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Rogue     = {'prof_bonus':[],
+Rogue     = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -208,7 +214,7 @@ Rogue     = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Sorcerer  = {'prof_bonus':[],
+Sorcerer  = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -217,7 +223,7 @@ Sorcerer  = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Warlock   = {'prof_bonus':[],
+Warlock   = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
@@ -226,7 +232,7 @@ Warlock   = {'prof_bonus':[],
              'profs':[armour,weapons,tools,skills]
              }
 
-Wizard    = {'prof_bonus':[],
+Wizard    = {
              'features':[],
              'cantrips':[],
              'spell_slots':[],
